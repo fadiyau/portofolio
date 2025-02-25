@@ -1,0 +1,4 @@
+.nav-menu ul li a.active {
+    font-weight: bold;
+    color: #ff6347; /* Warna yang menonjol untuk item aktif */
+}

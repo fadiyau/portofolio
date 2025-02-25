@@ -1,3 +1,22 @@
+<?php 
+    session_start();
+    include "connection/connection.php";
+    if(isset($_POST['login'])){
+        $email = htmlspecialchars($_POST['email']); 
+        $password = sha1($_POST['password']);
+
+        $query = mysqli_query($koneksi, "SELECT * FROM user WHERE user.email = '$email'");
+        if(mysqli_num_rows($query) > 0){
+            $dataUser = mysqli_fetch_assoc($query);
+            if($dataUser['password'] == $password){
+                $_SESSION['nama'] = $dataUser['nama'];
+                $_SESSION['email'] = $dataUser['email'];
+                header('location:index.php'); 
+                exit;      
+            }
+        }
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,18 +24,18 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Skydash Admin</title>
+  <title>Admin</title>
   <!-- plugins:css -->
-  <link rel="stylesheet" href="../../vendors/feather/feather.css">
-  <link rel="stylesheet" href="../../vendors/ti-icons/css/themify-icons.css">
-  <link rel="stylesheet" href="../../vendors/css/vendor.bundle.base.css">
+  <link rel="stylesheet" href="../asset/adm/vendors/feather/feather.css">
+  <link rel="stylesheet" href="../asset/adm/vendors/ti-icons/css/themify-icons.css">
+  <link rel="stylesheet" href="../asset/adm/vendors/css/vendor.bundle.base.css">
   <!-- endinject -->
   <!-- Plugin css for this page -->
   <!-- End plugin css for this page -->
   <!-- inject:css -->
-  <link rel="stylesheet" href="../../css/vertical-layout-light/style.css">
+  <link rel="stylesheet" href="../asset/adm/css/vertical-layout-light/style.css">
   <!-- endinject -->
-  <link rel="shortcut icon" href="../../images/favicon.png" />
+  <link rel="shortcut icon" href="../asset/adm/images/favicon.png" />
 </head>
 
 <body>
@@ -27,19 +46,22 @@
           <div class="col-lg-4 mx-auto">
             <div class="auth-form-light text-left py-5 px-4 px-sm-5">
               <div class="brand-logo">
-                <img src="../../images/logo.svg" alt="logo">
+                <img src="../asset/adm/images/logo.svg" alt="logo">
               </div>
+              <?php if(isset($_GET['access'])) : ?>
+                <div class="alert alert-danger">Silakan Login</div>
+              <?php endif ?>
               <h4>Hello! let's get started</h4>
               <h6 class="font-weight-light">Sign in to continue.</h6>
-              <form class="pt-3">
+              <form class="pt-3" action="" method="post">
                 <div class="form-group">
-                  <input type="email" class="form-control form-control-lg" id="exampleInputEmail1" placeholder="Username">
+                  <input type="email" name="email" class="form-control form-control-lg" id="exampleInputEmail1" placeholder="Username">
                 </div>
                 <div class="form-group">
-                  <input type="password" class="form-control form-control-lg" id="exampleInputPassword1" placeholder="Password">
+                  <input type="password" name="password" class="form-control form-control-lg" id="exampleInputPassword1" placeholder="Password">
                 </div>
                 <div class="mt-3">
-                  <a class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" href="../../index.html">SIGN IN</a>
+                  <button type="submit" name="login" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">SIGN IN</>
                 </div>
                 <div class="my-2 d-flex justify-content-between align-items-center">
                   <div class="form-check">
@@ -69,16 +91,16 @@
   </div>
   <!-- container-scroller -->
   <!-- plugins:js -->
-  <script src="../../vendors/js/vendor.bundle.base.js"></script>
+  <script src="../asset/adm/vendors/js/vendor.bundle.base.js"></script>
   <!-- endinject -->
   <!-- Plugin js for this page -->
   <!-- End plugin js for this page -->
   <!-- inject:js -->
-  <script src="../../js/off-canvas.js"></script>
-  <script src="../../js/hoverable-collapse.js"></script>
-  <script src="../../js/template.js"></script>
-  <script src="../../js/settings.js"></script>
-  <script src="../../js/todolist.js"></script>
+  <script src="../asset/adm/js/off-canvas.js"></script>
+  <script src="../asset/adm/js/hoverable-collapse.js"></script>
+  <script src="../asset/adm/js/template.js"></script>
+  <script src="../asset/adm/js/settings.js"></script>
+  <script src="../asset/adm/js/todolist.js"></script>
   <!-- endinject -->
 </body>
 

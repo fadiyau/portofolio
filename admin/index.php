@@ -1,3 +1,11 @@
+<?php 
+  ob_start();
+  session_start();
+  if(!isset($_SESSION['nama'])){
+    header("location:login.php?access=failed");
+  }
+  include 'connection/connection.php'; 
+?>     
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +13,7 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Skydash Admin</title>
+  <title>Admin</title>
   <!-- plugins:css -->
   <link rel="stylesheet" href="../asset/adm/vendors/feather/feather.css">
   <link rel="stylesheet" href="../asset/adm/vendors/ti-icons/css/themify-icons.css">
@@ -205,9 +213,9 @@
       <div class="main-panel">
         <div class="content-wrapper">
           <?php
-                  if (isset($_GET['monyet'])) {
-                      if (file_exists('content/' . $_GET['monyet'] . '.php')) {
-                          include 'content/' . $_GET['monyet'] . '.php';
+                  if (isset($_GET['pg'])) {
+                      if (file_exists('content/' . $_GET['pg'] . '.php')) {
+                          include 'content/' . $_GET['pg'] . '.php';
                       }
                   }else{
                       include 'content/home.php';
